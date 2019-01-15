@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CounterList">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="normal"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="bottom|left"
+        app:maxImageSize="40dp"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/label"
+            android:textColorLink="@color/colorPrimary"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="@string/label" />
+    </android.support.design.widget.AppBarLayout>
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_counter_list" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="normal"
+        app:maxImageSize="40dp"
+        app:srcCompat="@android:drawable/ic_menu_add"
+        tools:fabSize="normal" />
+
+</android.support.design.widget.CoordinatorLayout>
