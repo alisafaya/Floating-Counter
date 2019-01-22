@@ -9,7 +9,7 @@ public class Item {
     public Item(String name, String description) {
         this.itemName = name;
         this.itemDescription = description;
-        this.itemValue = new  Object().hashCode();
+        this.itemValue = 0;
     }
 
     public String getItemName() {

@@ -1,5 +1,8 @@
 package safaya.ali.masbahati;
 
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.support.v7.widget.RecyclerView;
 import android.widget.BaseAdapter;
 import android.view.LayoutInflater;
 import android.content.Context;
@@ -7,21 +10,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.RadioButton;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 
 public class CountersAdapter extends BaseAdapter {
 
-    private Context context; //context
-    private ArrayList<Item> items; //data source of the list adapter
-    private int selectedPosition = -1;
+    public Context context; //context
+    public ArrayList<Item> items; //data source of the list adapter
+    public int selectedPosition = -1;
+    public ArrayList<View> selectedViews;
+    public ArrayList<Item> selectedItems;
 
 
     //public constructor
     public CountersAdapter(Context context, ArrayList<Item> items) {
         this.context = context;
         this.items = items;
-
+        this.selectedViews = new ArrayList<>();
+        this.selectedItems = new ArrayList<>();
     }
 
     @Override
@@ -40,7 +48,7 @@ public class CountersAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         // inflate the layout for each list row
         if (convertView == null) {
             convertView = LayoutInflater.from(context).
@@ -57,7 +65,7 @@ public class CountersAdapter extends BaseAdapter {
                 convertView.findViewById(R.id.text_view_item_description);
         TextView textViewCounterValue = (TextView)
                 convertView.findViewById(R.id.text_view_counter_value);
-        RadioButton radioButton = (RadioButton) convertView.findViewById(R.id.radio_button);
+        final RadioButton radioButton = (RadioButton) convertView.findViewById(R.id.radio_button);
 
         //sets the text for item name and item description from the current item object
         textViewItemName.setText(currentItem.getItemName());
@@ -75,7 +83,39 @@ public class CountersAdapter extends BaseAdapter {
             }
         });
 
+        final String Name = currentItem.itemName;
+
+        convertView.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, " تم اختيار " + Name , Toast.LENGTH_SHORT).show();
+                        radioButton.callOnClick();
+                    }
+                }
+        );
+
+        convertView.setOnLongClickListener(
+                new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        if (selectedViews.contains(v)) {
+                            v.setBackgroundColor(Color.WHITE);
+                            selectedViews.remove(v);
+                            selectedItems.remove( (Integer) v.getTag());
+
+                        } else {
+                            selectedViews.add(v);
+                            selectedItems.add(items.get((Integer) v.getTag()));
+                            v.setBackgroundColor(0xffd6d7d7);
+                        }
+                        return true;
+                    }
+                }
+        );
+
         // returns the view for the current row
         return convertView;
     }
+
 }
