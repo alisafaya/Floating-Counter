@@ -7,6 +7,18 @@
     tools:context=".CounterList">
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/start_floating_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="normal"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="bottom|center"
+        app:maxImageSize="40dp"
+        app:srcCompat="@android:drawable/ic_media_play" />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/delete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
