@@ -31,12 +31,13 @@
 
             <!--Close button-->
             <ImageView
-                android:id="@+id/close_btn"
+                android:id="@+id/show_expanded_view_btn"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="40dp"
-                android:src="@drawable/ic_close"
+                android:src="@drawable/ic_open"
                 tools:ignore="ContentDescription"/>
+
         </RelativeLayout>
 
         <!--View while view is expanded-->
@@ -44,65 +45,47 @@
             android:id="@+id/expanded_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#F8BBD0"
-            android:visibility="gone"
+            android:background="@color/BackgroundColor"
             android:orientation="horizontal"
-            android:padding="8dp">
+            android:padding="8dp"
+            android:visibility="gone">
 
-            <!--Album image for the song currently playing.-->
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/music_player"
-                tools:ignore="ContentDescription"/>
-
-            <!--Previous button-->
-            <ImageView
-                android:id="@+id/prev_btn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:src="@mipmap/ic_previous"
-                tools:ignore="ContentDescription"/>
-
-            <!--Play button-->
-            <ImageView
-                android:id="@+id/play_btn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:src="@mipmap/ic_play"
-                tools:ignore="ContentDescription"/>
-
-            <!--Next button-->
-            <ImageView
-                android:id="@+id/next_btn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:src="@mipmap/ic_play_next"
-                tools:ignore="ContentDescription"/>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:minWidth="100dp"
+                android:minHeight="100dp"
                 android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/exit_button"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_close" />
+
+                <TextView
+                    android:id="@+id/expanded_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <ImageView
                     android:id="@+id/close_button"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_close"/>
+                    tools:src="@mipmap/ic_play" />
 
                 <ImageView
                     android:id="@+id/open_button"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_alignParentBottom="true"
-                    android:src="@drawable/ic_open"/>
+                    android:src="@drawable/ic_open" />
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>

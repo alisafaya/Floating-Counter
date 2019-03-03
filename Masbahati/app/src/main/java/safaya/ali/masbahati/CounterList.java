@@ -229,7 +229,10 @@ public class CounterList extends AppCompatActivity {
         findViewById(R.id.start_floating_view).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startService(new Intent(CounterList.this, FloatingViewService.class));
+                Intent floatingViewIntent = new Intent(CounterList.this, FloatingViewService.class);
+                floatingViewIntent.putExtra("counter", adapter.getSelectedItem());
+                startService(floatingViewIntent);
+
                 finish();
             }
         });

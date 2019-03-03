@@ -32,6 +32,14 @@ public class CountersAdapter extends BaseAdapter {
         this.selectedItems = new ArrayList<>();
     }
 
+    public Item getSelectedItem(){
+        if (selectedPosition == -1 || getItem(selectedPosition) == null){
+            return null;
+        } else {
+            return (Item) getItem(selectedPosition);
+        }
+    }
+
     @Override
     public int getCount() {
         return items.size(); //returns total of items in the list

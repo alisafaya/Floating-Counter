@@ -10,19 +10,33 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 
 public class FloatingViewService extends Service {
     private WindowManager mWindowManager;
     private View mFloatingView;
+    private Item counter;
 
-    public FloatingViewService() {
+    public FloatingViewService() { }
+
+
+    public void saveData(){
+
     }
 
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId){
+        this.counter = (Item)intent.getExtras().getSerializable("counter");
+        return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
@@ -53,46 +67,24 @@ public class FloatingViewService extends Service {
         //The root element of the expanded view layout
         final View expandedView = mFloatingView.findViewById(R.id.expanded_container);
 
+        final TextView expandedTextView = (TextView) mFloatingView.findViewById(R.id.expanded_text_view);
+
         //Set the close button
-        ImageView closeButtonCollapsed = (ImageView) mFloatingView.findViewById(R.id.close_btn);
+        ImageView closeButtonCollapsed = (ImageView) mFloatingView.findViewById(R.id.show_expanded_view_btn);
         closeButtonCollapsed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //close the service and remove the from from the window
-                stopSelf();
+                if (isViewCollapsed()) {
+                    //When user clicks on the image view of the collapsed layout,
+                    //visibility of the collapsed layout will be changed to "View.GONE"
+                    //and expanded view will become visible.
+                    collapsedView.setVisibility(View.GONE);
+                    expandedView.setVisibility(View.VISIBLE);
+                    expandedTextView.setText("(" + counter.getItemValue() + ") " + counter.getItemName());
+                }
             }
         });
-
-        //Set the view while floating view is expanded.
-        //Set the play button.
-        ImageView playButton = (ImageView) mFloatingView.findViewById(R.id.play_btn);
-        playButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(FloatingViewService.this, "Playing the song.", Toast.LENGTH_LONG).show();
-            }
-        });
-
-
-        //Set the next button.
-        ImageView nextButton = (ImageView) mFloatingView.findViewById(R.id.next_btn);
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(FloatingViewService.this, "Playing next song.", Toast.LENGTH_LONG).show();
-            }
-        });
-
-
-        //Set the pause button.
-        ImageView prevButton = (ImageView) mFloatingView.findViewById(R.id.prev_btn);
-        prevButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(FloatingViewService.this, "Playing previous song.", Toast.LENGTH_LONG).show();
-            }
-        });
-
 
         //Set the close button
         ImageView closeButton = (ImageView) mFloatingView.findViewById(R.id.close_button);
@@ -104,6 +96,14 @@ public class FloatingViewService extends Service {
             }
         });
 
+        //Set the exit button
+        ImageView exitButton = (ImageView) mFloatingView.findViewById(R.id.exit_button);
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopSelf();
+            }
+        });
 
         //Open the application on thi button click
         ImageView openButton = (ImageView) mFloatingView.findViewById(R.id.open_button);
@@ -146,18 +146,14 @@ public class FloatingViewService extends Service {
                         int Xdiff = (int) (event.getRawX() - initialTouchX);
                         int Ydiff = (int) (event.getRawY() - initialTouchY);
 
-
                         //The check for Xdiff <10 && YDiff< 10 because sometime elements moves a little while clicking.
                         //So that is click event.
                         if (Xdiff < 10 && Ydiff < 10) {
-                            if (isViewCollapsed()) {
-                                //When user clicks on the image view of the collapsed layout,
-                                //visibility of the collapsed layout will be changed to "View.GONE"
-                                //and expanded view will become visible.
-                                collapsedView.setVisibility(View.GONE);
-                                expandedView.setVisibility(View.VISIBLE);
-                            }
+                            //increase counter
+                            counter.increase();
+                            saveData();
                         }
+
                         return true;
                     case MotionEvent.ACTION_MOVE:
                         //Calculate the X and Y coordinates of the view.

@@ -1,6 +1,8 @@
 package safaya.ali.masbahati;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
 
     public String itemName;
     public String itemDescription;
