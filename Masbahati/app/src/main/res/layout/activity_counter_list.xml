@@ -4,19 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/BackgroundColor"
     tools:context=".CounterList">
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/start_floating_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="normal"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="bottom|center"
         app:maxImageSize="40dp"
-        app:srcCompat="@android:drawable/ic_media_play" />
+        app:srcCompat="@drawable/ic_android_circle" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/delete"

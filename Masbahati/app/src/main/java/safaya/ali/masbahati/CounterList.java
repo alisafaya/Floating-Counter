@@ -18,6 +18,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import java.util.ArrayList;
+import java.util.List;
+
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -100,6 +102,7 @@ public class CounterList extends AppCompatActivity {
                                                                 // edit text
                                                                 item.itemDescription = userInput2.getText().toString();
                                                                 adapter.items.add(item);
+                                                                Item.saveItems(context);
                                                                 adapter.notifyDataSetChanged();
                                                             }
                                                         })
@@ -153,31 +156,21 @@ public class CounterList extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
                 adapter.selectedViews.clear();
                 adapter.selectedItems.clear();
+                Item.saveItems(context);
             }
         });
 
-        // Setup the data source
-        ArrayList<Item> itemsArrayList = new ArrayList<>(); // calls function to get items list
 
-        itemsArrayList.add(new Item("الصلاو زسسيثق زشسيشس", "شسيشس منشتسينمشست شستنميىشسنميتمنس كمسيمكس سمنية"));
-        itemsArrayList.add(new Item("الصلاو زسسيثق زشسيشس", "شسيشس منشتسينمشست شستنميىشسنميتمنس كمسيمكس سمنية"));
-        itemsArrayList.add(new Item("شسينم ثتنمضص نمش", "نمشسم شتنمسةى شنمسشسنم منشسةي"));
-        itemsArrayList.add(new Item("شسيث", "ضصثضص "));
-        itemsArrayList.add(new Item("شسينم ثتنمضص نمش", "نمشسم شتنمسةى شنمسشسنم منشسةي"));
-        itemsArrayList.add(new Item("شسيث", "ضصثضص "));
-        itemsArrayList.add(new Item("الصلاو زسسيثق زشسيشس", "شسيشس منشتسينمشست شستنميىشسنميتمنس كمسيمكس سمنية"));
-        itemsArrayList.add(new Item("الصلاو زسسيثق زشسيشس", "شسيشس منشتسينمشست شستنميىشسنميتمنس كمسيمكس سمنية"));
-        itemsArrayList.add(new Item("شسينم ثتنمضص نمش", "نمشسم شتنمسةى شنمسشسنم منشسةي"));
-        itemsArrayList.add(new Item("شسيث", "ضصثضص "));
-        itemsArrayList.add(new Item("شسينم ثتنمضص نمش", "نمشسم شتنمسةى شنمسشسنم منشسةي"));
-        itemsArrayList.add(new Item("شسيث", "ضصثضص "));
 
         // instantiate the custom list adapter
-        this.adapter = new CountersAdapter(this, itemsArrayList);
+        this.adapter = new CountersAdapter(this, Item.getItemsToSave(context));
 
         // get the ListView and attach the adapter
         this.itemsListView  = (ListView) findViewById(R.id.countersList);
         itemsListView.setAdapter(this.adapter);
+
+        if (Item.getCurrentItem(context) != null )
+            this.adapter.selectedPosition = Item.getItemsToSave(context).indexOf(Item.getCurrentItem(context));
 
         /*
 
@@ -229,11 +222,12 @@ public class CounterList extends AppCompatActivity {
         findViewById(R.id.start_floating_view).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent floatingViewIntent = new Intent(CounterList.this, FloatingViewService.class);
-                floatingViewIntent.putExtra("counter", adapter.getSelectedItem());
-                startService(floatingViewIntent);
-
-                finish();
+                if (adapter.getSelectedItem() != null) {
+                    Item.saveItems(context);
+                    Intent floatingViewIntent = new Intent(CounterList.this, FloatingViewService.class);
+                    startService(floatingViewIntent);
+                    finish();
+                }
             }
         });
     }

@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.RadioButton;
 import android.widget.Toast;
-
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class CountersAdapter extends BaseAdapter {
@@ -39,6 +39,7 @@ public class CountersAdapter extends BaseAdapter {
             return (Item) getItem(selectedPosition);
         }
     }
+
 
     @Override
     public int getCount() {
@@ -87,6 +88,7 @@ public class CountersAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 selectedPosition = (Integer)view.getTag();
+                Item.ItemsToSave.currentItem = getSelectedItem();
                 notifyDataSetChanged();
             }
         });

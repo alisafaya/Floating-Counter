@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,15 +18,16 @@ import org.w3c.dom.Text;
 
 
 public class FloatingViewService extends Service {
+
     private WindowManager mWindowManager;
     private View mFloatingView;
     private Item counter;
+    private final FloatingViewService _this = this;
 
     public FloatingViewService() { }
 
-
-    public void saveData(){
-
+    public void getData(){
+        counter = Item.getCurrentItem(this);
     }
 
     @Override
@@ -35,7 +37,7 @@ public class FloatingViewService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
-        this.counter = (Item)intent.getExtras().getSerializable("counter");
+        getData();
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -81,13 +83,13 @@ public class FloatingViewService extends Service {
                     //and expanded view will become visible.
                     collapsedView.setVisibility(View.GONE);
                     expandedView.setVisibility(View.VISIBLE);
-                    expandedTextView.setText("(" + counter.getItemValue() + ") " + counter.getItemName());
+                    expandedTextView.setText( counter.getItemName() + "(" + counter.getItemValue() + ") " );
                 }
             }
         });
 
         //Set the close button
-        ImageView closeButton = (ImageView) mFloatingView.findViewById(R.id.close_button);
+        RelativeLayout closeButton = (RelativeLayout) mFloatingView.findViewById(R.id.expanded_container);
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,7 +153,7 @@ public class FloatingViewService extends Service {
                         if (Xdiff < 10 && Ydiff < 10) {
                             //increase counter
                             counter.increase();
-                            saveData();
+                            Item.saveItems(_this);
                         }
 
                         return true;
