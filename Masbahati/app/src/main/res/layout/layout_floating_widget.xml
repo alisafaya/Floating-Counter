@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
@@ -54,7 +55,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="100dp"
+                android:minWidth="30dp"
                 android:minHeight="50dp"
                 android:orientation="vertical">
 
@@ -71,12 +72,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginTop="35dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_margin="5dp"
+                    android:maxWidth="120dp"
+                    android:maxLines="3"
                     android:text="some value"
                     android:textColor="@android:color/background_dark"
-                    android:textColorLink="@android:color/background_dark" />
+                    android:textColorLink="@android:color/background_dark"
+                    android:textSize="20sp" />
 
                 <!-- <ImageView
                     android:id="@+id/close_button"

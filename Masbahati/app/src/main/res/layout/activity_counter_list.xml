@@ -8,10 +8,23 @@
     tools:context=".CounterList">
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="normal"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="bottom|start"
+        app:maxImageSize="40dp"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/start_floating_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="bottom|center"
         android:layout_margin="16dp"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="normal"
@@ -21,17 +34,18 @@
         app:srcCompat="@drawable/ic_android_circle" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/delete"
+        android:id="@+id/add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="normal"
-        app:layout_anchor="@+id/include"
-        app:layout_anchorGravity="bottom|left"
+        app:layout_anchor="@id/include"
+        app:layout_anchorGravity="bottom|end"
         app:maxImageSize="40dp"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
+        app:srcCompat="@android:drawable/ic_menu_add"
+        tools:fabSize="normal" />
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -55,17 +69,5 @@
     <include
         android:id="@+id/include"
         layout="@layout/content_counter_list" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/colorPrimary"
-        app:fabSize="normal"
-        app:maxImageSize="40dp"
-        app:srcCompat="@android:drawable/ic_menu_add"
-        tools:fabSize="normal" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -3,6 +3,7 @@ package safaya.ali.masbahati;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.IBinder;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -51,7 +52,7 @@ public class FloatingViewService extends Service {
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.TYPE_PHONE,
+                Build.VERSION.SDK_INT >= 26 ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_PHONE,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT);
 
@@ -83,7 +84,7 @@ public class FloatingViewService extends Service {
                     //and expanded view will become visible.
                     collapsedView.setVisibility(View.GONE);
                     expandedView.setVisibility(View.VISIBLE);
-                    expandedTextView.setText( counter.getItemName() + "(" + counter.getItemValue() + ") " );
+                    expandedTextView.setText( counter.getItemName() + " (" + counter.getItemValue() + ") " );
                 }
             }
         });
